@@ -8,7 +8,7 @@ export class TestResolver {
   constructor(private prismaService: PrismaService) {}
 
   @Query(() => String)
-  // @UseGuards(AuthorizationGuard)
+  @UseGuards(AuthorizationGuard)
   hello() {
     return 'ola mundo';
   }
