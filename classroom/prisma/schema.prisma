@@ -13,6 +13,8 @@ datasource db {
 model Student {
   id String @id @default(uuid())
 
+  authUserId String? @unique
+
   title String
   slug  String @unique
 
@@ -46,9 +48,9 @@ model Enrollment {
   course   Course @relation(fields: [courseId], references: [id])
   courseId String
 
-  canceldAt DateTime?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @default(now()) @updatedAt
+  canceledAt DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @default(now()) @updatedAt
 
   @@map("enrollments")
 }
