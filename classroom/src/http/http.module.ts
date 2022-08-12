@@ -11,9 +11,11 @@ import { CoursesService } from 'src/services/courses.service';
 import { EnrollMentsService } from 'src/services/enrollments.service';
 import { StudentsService } from 'src/services/students.service';
 import { CoursesResolver } from './graphql/resolvers/courses.resolver';
+import { MessagingModule } from 'src/messaging/messaging.module';
 
 @Module({
   imports: [
+    MessagingModule,
     ConfigModule.forRoot(),
     DatabaseModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({

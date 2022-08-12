@@ -11,12 +11,8 @@ datasource db {
 }
 
 model Student {
-  id String @id @default(uuid())
-
+  id         String  @id @default(uuid())
   authUserId String? @unique
-
-  title String
-  slug  String @unique
 
   enrollments Enrollment[]
 
