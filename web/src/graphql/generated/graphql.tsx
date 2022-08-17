@@ -111,52 +111,57 @@ export type User = {
   purchases: Array<Purchase>;
 };
 
-export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
+export type CreatePurchaseMutationVariables = Exact<{
+  productId: Scalars['String'];
+}>;
 
 
-export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, title: string }> };
+export type CreatePurchaseMutation = { __typename?: 'Mutation', createPurchase: { __typename?: 'Purchase', id: string } };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', enrollments: Array<{ __typename?: 'Enrollment', id: string, createdAt: any, course: { __typename?: 'Course', title: string, slug: string } }> } };
 
+export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
-export const GetProductsDocument = gql`
-    query GetProducts {
-  products {
+
+export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, title: string }> };
+
+
+export const CreatePurchaseDocument = gql`
+    mutation CreatePurchase($productId: String!) {
+  createPurchase(data: {productId: $productId}) {
     id
-    title
   }
 }
     `;
+export type CreatePurchaseMutationFn = Apollo.MutationFunction<CreatePurchaseMutation, CreatePurchaseMutationVariables>;
 
 /**
- * __useGetProductsQuery__
+ * __useCreatePurchaseMutation__
  *
- * To run a query within a React component, call `useGetProductsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
+ * To run a mutation, you first call `useCreatePurchaseMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePurchaseMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const { data, loading, error } = useGetProductsQuery({
+ * const [createPurchaseMutation, { data, loading, error }] = useCreatePurchaseMutation({
  *   variables: {
+ *      productId: // value for 'productId'
  *   },
  * });
  */
-export function useGetProductsQuery(baseOptions?: Apollo.QueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {
+export function useCreatePurchaseMutation(baseOptions?: Apollo.MutationHookOptions<CreatePurchaseMutation, CreatePurchaseMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetProductsQuery, GetProductsQueryVariables>(GetProductsDocument, options);
+        return Apollo.useMutation<CreatePurchaseMutation, CreatePurchaseMutationVariables>(CreatePurchaseDocument, options);
       }
-export function useGetProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetProductsQuery, GetProductsQueryVariables>(GetProductsDocument, options);
-        }
-export type GetProductsQueryHookResult = ReturnType<typeof useGetProductsQuery>;
-export type GetProductsLazyQueryHookResult = ReturnType<typeof useGetProductsLazyQuery>;
-export type GetProductsQueryResult = Apollo.QueryResult<GetProductsQuery, GetProductsQueryVariables>;
+export type CreatePurchaseMutationHookResult = ReturnType<typeof useCreatePurchaseMutation>;
+export type CreatePurchaseMutationResult = Apollo.MutationResult<CreatePurchaseMutation>;
+export type CreatePurchaseMutationOptions = Apollo.BaseMutationOptions<CreatePurchaseMutation, CreatePurchaseMutationVariables>;
 export const MeDocument = gql`
     query Me {
   me {
@@ -198,3 +203,38 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const GetProductsDocument = gql`
+    query GetProducts {
+  products {
+    id
+    title
+  }
+}
+    `;
+
+/**
+ * __useGetProductsQuery__
+ *
+ * To run a query within a React component, call `useGetProductsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProductsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetProductsQuery(baseOptions?: Apollo.QueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetProductsQuery, GetProductsQueryVariables>(GetProductsDocument, options);
+      }
+export function useGetProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetProductsQuery, GetProductsQueryVariables>(GetProductsDocument, options);
+        }
+export type GetProductsQueryHookResult = ReturnType<typeof useGetProductsQuery>;
+export type GetProductsLazyQueryHookResult = ReturnType<typeof useGetProductsLazyQuery>;
+export type GetProductsQueryResult = Apollo.QueryResult<GetProductsQuery, GetProductsQueryVariables>;

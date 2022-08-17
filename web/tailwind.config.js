@@ -1,3 +1,4 @@
+
 module.exports = {
   content: [
     './src/pages/**/*.tsx',
@@ -6,5 +7,8 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
+  ],
 }

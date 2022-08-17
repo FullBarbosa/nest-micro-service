@@ -1,9 +1,3 @@
-query GetProducts {
-  products {
-    id
-    title
-  }
-}
 
 query Me {
   me {
